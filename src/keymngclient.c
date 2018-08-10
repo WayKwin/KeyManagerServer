@@ -65,6 +65,7 @@ int main()
         break;
       case 3:
         printf("密钥注销\n");
+        ret = MngClient_Revoke(&MC_info);
         break;
       case 4:
         printf("密钥查看\n");

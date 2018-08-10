@@ -154,9 +154,38 @@ int MngServer_Check(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned cha
 
 int MngServer_Revoke(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned char **outData, int *datalen)
 {
-    
+  int ret;
+  MsgKey_Res msgkeyRes;
+  NodeSHMInfo nodeShmInfo;
+
+  memset(&nodeShmInfo,0,sizeof(nodeShmInfo));
+  memset(&msgkeyRes,0,sizeof(msgkeyRes));
+
+
+  /*printf("clientId->%s,serverId->%s\n",msgkeyReq->clientId,msgkeyReq->serverId);*/
+
+  ret = KeyMng_ShmDelete(svrInfo->shmhdl,svrInfo->maxnode,&nodeShmInfo); 
+  if(ret != 0 && ret != -1)
+  {
+    KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[4],ret,"KeyMng_Delete()");
+    return 0;
+  }
+  /*printf("compare :%s|%s\n",msgkeyReq->r1,nodeShmInfo.seckey);*/
+  if(ret == -1)
+  {
+    msgkeyRes.rv = KeyMng_Revoke_NotFound;
+    return ret;
+  }
+  else 
+  {
+    msgkeyRes.rv = KeyMng_Revoke_Suceess;
+  }
+  ret = MsgEncode((void*)&msgkeyRes,ID_MsgKey_Res,outData,datalen);
+  return 0;
 }
 
 
 int MngServer_view(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned char **outData, int *datalen)
-{}
+{
+  
+}

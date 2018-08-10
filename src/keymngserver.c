@@ -93,6 +93,7 @@ void* process(void* arg)
         ret = MngServer_Check(&mngServerInfo,msgKeyReq,&pMsgKeyResData,&iMsgKeyResDataLen);
         break;
       case KeyMng_Revoke:
+        ret = MngServer_Revoke(&mngServerInfo,msgKeyReq,&pMsgKeyResData,&iMsgKeyResDataLen);
         break;
     }
     // 此处的 ret 是switch 错误处理  swtich 最好不要 goto end

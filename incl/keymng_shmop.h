@@ -34,7 +34,6 @@ int KeyMng_ShmInit(int key, int maxnodenum, int *shmhdl);
 /*
 1 写的网点密钥时,先判断网点密钥是否存在
 	若存在则修改
-:w
 */
 
 int KeyMng_ShmWrite(int shmhdl, int maxnodenum, NodeSHMInfo *pNodeInfo);
@@ -42,6 +41,8 @@ int KeyMng_ShmWrite(int shmhdl, int maxnodenum, NodeSHMInfo *pNodeInfo);
 
 
 int KeyMng_ShmRead(int shmhdl, char *clientId, char *serverId,  int maxnodenum, NodeSHMInfo *pNodeInfo);
+
+int KeyMng_ShmDelete(int shmhdl,int maxnodenum, NodeSHMInfo *pNodeInfo);
 
 
 #ifdef __cplusplus

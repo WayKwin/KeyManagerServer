@@ -153,3 +153,45 @@ END:
     IPC_UnMapShm(addr);
     return ret;
 }
+int KeyMng_ShmDelete(int shmhdl,int maxnodenum, NodeSHMInfo *pNodeInfo)
+{
+  int ret = 0, i = 0;
+  NodeSHMInfo* CurNode = NULL;
+  char* addr = NULL;
+  char *clientId = NULL;
+  char *serverId = NULL;
+  if( pNodeInfo == NULL)
+  {
+    ret = MngClt_ParamErr;
+    KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[4],ret,"KeyMng_ShmRead() err %d\n",ret);
+    goto END;
+  }
+  clientId = pNodeInfo->clientId ;
+  serverId = pNodeInfo->serverId;
+  ret = IPC_MapShm(shmhdl,(void**)&addr);
+  if(ret != 0)
+  {
+    KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[4],ret,"IPC_MapShm() err %d\n",ret);
+    goto END;
+  }
+  
+  for( i = 0; i < maxnodenum; i++)
+  {
+    CurNode = (NodeSHMInfo*)(addr + i * sizeof(NodeSHMInfo));
+    /*printf("clientId->%s,serverId->%s\n",CurNode->clientId,CurNode->serverId);*/
+    if( CurNode->status == 1 && strcmp(CurNode->clientId,clientId) == 0 &&
+        strcmp(CurNode->serverId,serverId) == 0 )
+    {
+        /*printf("clientId->%s,serverId->%s\n",CurNode->clientId,CurNode->serverId);*/
+        memset((void*)CurNode,0,sizeof(CurNode));
+        printf("找到网点信息, 注销成功\n");
+        goto END;
+    }
+  }
+  ret =  -1;
+  printf("网点信息不存在\n");
+END:
+  if(addr != NULL)
+    IPC_UnMapShm(addr);
+    return ret;
+}

@@ -13,10 +13,15 @@ extern "C" {
 #define		KeyMng_Check			2		//2 密钥校验
 #define		KeyMng_Revoke			3		//3 密钥注销
 #define   KeyMng_Check_Len 6 // 密钥长度
-
+//  关于密钥校验的函数
 #define KeyMng_Check_Not_Found 13
 #define KeyMng_Check_Same 14
 #define KeyMng_Check_Differ 15
+//  关于密钥注销的函数
+#define KeyMng_Revoke_Suceess 20
+#define KeyMng_Revoke_Fail 21
+#define KeyMng_Revoke_NotFound 22
+//  
 #define  ID_MsgKey_Teacher  80
 	typedef struct _Teacher
 	{
