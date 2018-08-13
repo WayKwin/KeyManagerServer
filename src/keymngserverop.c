@@ -155,13 +155,15 @@ int MngServer_Check(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned cha
 int MngServer_Revoke(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned char **outData, int *datalen)
 {
   int ret;
+  // 构建应答报文
   MsgKey_Res msgkeyRes;
   NodeSHMInfo nodeShmInfo;
 
   memset(&nodeShmInfo,0,sizeof(nodeShmInfo));
   memset(&msgkeyRes,0,sizeof(msgkeyRes));
 
-
+  strcpy(nodeShmInfo.clientId,msgkeyReq->clientId);
+  strcpy(nodeShmInfo.serverId,msgkeyReq->serverId);
   /*printf("clientId->%s,serverId->%s\n",msgkeyReq->clientId,msgkeyReq->serverId);*/
 
   ret = KeyMng_ShmDelete(svrInfo->shmhdl,svrInfo->maxnode,&nodeShmInfo); 
@@ -187,5 +189,5 @@ int MngServer_Revoke(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned ch
 
 int MngServer_view(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned char **outData, int *datalen)
 {
-  
+    
 }

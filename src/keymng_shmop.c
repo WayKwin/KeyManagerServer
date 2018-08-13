@@ -87,6 +87,7 @@ int KeyMng_ShmWrite(int shmhdl, int maxnodenum, NodeSHMInfo *pNodeInfo)
       printf("密钥已经存在,更新密钥\n");
       /*printf("clientId->%s,serverId->%s\n",CurNode->clientId,CurNode->serverId);*/
       memcpy(CurNode,pNodeInfo,sizeof(NodeSHMInfo));
+      CurNode->status = 1;
       KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[2],ret,"网点密钥已经存在,已重新覆盖密钥信息");
       goto END;
     }
@@ -101,6 +102,7 @@ int KeyMng_ShmWrite(int shmhdl, int maxnodenum, NodeSHMInfo *pNodeInfo)
       printf("密钥不存在,新增密钥\n");
       /*printf("clientId->%s,serverId->%s\n",CurNode->clientId,CurNode->serverId);*/
       memcpy(CurNode,pNodeInfo,sizeof(NodeSHMInfo));
+      CurNode->status = 1;
       KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[2],ret,"插入新的网点信息");
       goto END;
     }
@@ -166,6 +168,7 @@ int KeyMng_ShmDelete(int shmhdl,int maxnodenum, NodeSHMInfo *pNodeInfo)
     KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[4],ret,"KeyMng_ShmRead() err %d\n",ret);
     goto END;
   }
+  /*printf("clientId->%s,serverId->%s\n",pNodeInfo->clientId,pNodeInfo->serverId);*/
   clientId = pNodeInfo->clientId ;
   serverId = pNodeInfo->serverId;
   ret = IPC_MapShm(shmhdl,(void**)&addr);
@@ -178,13 +181,14 @@ int KeyMng_ShmDelete(int shmhdl,int maxnodenum, NodeSHMInfo *pNodeInfo)
   for( i = 0; i < maxnodenum; i++)
   {
     CurNode = (NodeSHMInfo*)(addr + i * sizeof(NodeSHMInfo));
-    /*printf("clientId->%s,serverId->%s\n",CurNode->clientId,CurNode->serverId);*/
+    /*printf("maxnodenum:%d\n",maxnodenum);*/
     if( CurNode->status == 1 && strcmp(CurNode->clientId,clientId) == 0 &&
         strcmp(CurNode->serverId,serverId) == 0 )
     {
-        /*printf("clientId->%s,serverId->%s\n",CurNode->clientId,CurNode->serverId);*/
         memset((void*)CurNode,0,sizeof(CurNode));
+        CurNode->status = 0;
         printf("找到网点信息, 注销成功\n");
+        ret = 0;
         goto END;
     }
   }

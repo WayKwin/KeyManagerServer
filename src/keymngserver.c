@@ -93,6 +93,7 @@ void* process(void* arg)
         ret = MngServer_Check(&mngServerInfo,msgKeyReq,&pMsgKeyResData,&iMsgKeyResDataLen);
         break;
       case KeyMng_Revoke:
+        /*printf("im Revoke %s,%s\n");*/
         ret = MngServer_Revoke(&mngServerInfo,msgKeyReq,&pMsgKeyResData,&iMsgKeyResDataLen);
         break;
     }

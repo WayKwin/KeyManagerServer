@@ -8,20 +8,10 @@
 #include<string.h>
 #include<unistd.h>
 
+
 /*  MngClint_Info 是一个客户端的信息,应该从配置文件读取
- *  MsgKey_Req 是向服务器发送请求报文的结构体,其中信息由
- *  MngClient_Info 来填充
- *  
- *  
+ *  MsgKey_Req 是向服务器发送请求报文的结构体,其中信息由MngClient_Info 来填充
  *  NodeSHMInfo 是网点信息,写入网点用
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
  */
 
 int MngClient_InitInfo(MngClient_Info *pCltInfo)
@@ -337,8 +327,7 @@ int MngClient_Revoke(MngClient_Info *pCltInfo)
   }
   strcpy(msgReq.clientId,pCltInfo->clientId);
   strcpy(msgReq.serverId,pCltInfo->serverId);
-  strcpy(msgReq.AuthCode,pCltInfo->AuthCode);
-  memcpy(msgReq.r1,nodeShmInfo.seckey,KeyMng_Check_Len);
+  printf("in client clientID:%s,serverId:%s\n",pCltInfo->clientId,pCltInfo->serverId);
   /*printf("%d msgReq.r1%s\n",__LINE__,msgReq.r1);*/
 
 
