@@ -23,8 +23,10 @@ int MngClient_InitInfo(MngClient_Info *pCltInfo)
     KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[4],ret,"func main() MngClient_InitInfo() err (pCltInfo == NULL)");
   }
   // 本来是要在配置文件中读取的
+  // 使用GFLAGS
   strcpy(pCltInfo->clientId,"1111");
   strcpy(pCltInfo->serverId,"1234");
+  // 这里是使用私钥加密后的签名
   strcpy(pCltInfo->AuthCode,"1111");
   strcpy(pCltInfo->serverip,"127.0.0.1");
   pCltInfo->serverport = 8080;

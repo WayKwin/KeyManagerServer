@@ -39,9 +39,9 @@ extern "C" {
 		//1 密钥更新  	//2 密钥校验; 	//3 密钥注销
 		int				cmdType;		//报文命令码 
 		char			clientId[12];	//客户端编号
-		char			AuthCode[16];	//认证码
+		char			AuthCode[16];	//认证码 数字签名 签名
 		char			serverId[12];	//服务器端编号 
-		char			r1[64];		//客户端随机数
+		char			r1[64];		// 客户端的公钥
 
 	}MsgKey_Req;
 
@@ -53,8 +53,8 @@ extern "C" {
 		int					rv;				//返回值
 		char				clientId[12];	//客户端编号
 		char				serverId[12];	//服务器编号
-		unsigned char		r2[64];			//服务器端随机数
-		int					seckeyid;		//对称密钥编号 //modfy 2015.07.20
+		unsigned char		r2[64];			//服务器的签名
+		int					seckeyid;		//对称密钥编号 
 	}MsgKey_Res;
 
 

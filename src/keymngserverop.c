@@ -64,6 +64,7 @@ int  MngServer_Agree(MngServer_Info* mngServerInfo,
   msgRes.rv = 0;
   strcpy(msgRes.serverId,msgKeyReq->serverId);
   strcpy(msgRes.clientId,msgKeyReq->clientId);
+  //TODO 更换为RSA签名
   for(i = 0; i < 64; i++)
   {
     msgRes.r2[i] = 'a' + i;
