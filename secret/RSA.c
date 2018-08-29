@@ -87,23 +87,12 @@ char *my_decrypt(char *str, char *prikey_path)
 int main(int argc, char *argv[])
 {
     char *src = "hello, world!";
-    char *en = NULL;
-    char *de = NULL;
+    char dst[1024]= {0};
+    int src_len = strlen(src);
+    RSA* rsa = RSA_new();
+    RSA_public_encrypt(src_len,(unsigned char*)src,(unsigned char*)dst,rsa,0);
+    printf("%s\n",dst);
+    
  
-    printf("src is: %s\n", src);
- 
-    en = my_encrypt(src, PUBKEY);
-    printf("enc is: %s\n", en);
- 
-    de= my_decrypt(en, PRIKEY);
-    printf("dec is: %s\n", de);
- 
-    if (en != NULL) {
-        free(en);
-    }
- 
-    if (de != NULL) {
-        free(de);
-    }
     return 0;
 }

@@ -17,6 +17,7 @@
 #include "../incl/poolsocket.h"
 #include "../incl/keymngclientop.h"
 #include "../incl/keymng_msg.h"
+#include "../incl/crypto.h"
 int usage()
 {
   int nSel = -1;
@@ -36,12 +37,15 @@ int usage()
     while(getchar() != '\n'); //把应用程序io缓冲器的所有的数据 都读走,避免影响下一次 输入
     return nSel;
 }
-int main()
+int main(int argc,char* argv[] )
 {
  //读配置文件, clientid authocode,serverid serverip serverprot clientshmkey
  int ret = 0;
  MngClient_Info MC_info;
  memset(&MC_info,0,sizeof(MngClient_Info));
+
+ google::InitGoogleLogging(argv[0]);
+ FLAGS_log_dir = "./log";
 
  //初始化
   ret  = MngClient_InitInfo(&MC_info);
@@ -83,10 +87,5 @@ int main()
   }
 
 }
-#if 0 
-int main()
-{
-}
-#endif 
 
 

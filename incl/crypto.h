@@ -5,15 +5,14 @@
 #include<openssl/rsa.h>
 #include<openssl/pem.h>
 #include<openssl/err.h>
+#include<openssl/aes.h>
 #include<gflags/gflags.h>
 #include<glog/logging.h>
  
-#define PRIKEY "./privatekey.pem"
-#define PUBKEY "./publickey.pem"
 #define BUFFSIZE 4096
-char* RSA_encrypt(unsigned char* str);
-char* RSA_decrypt(unsigned char* str);
-int RSA_Generate_Key( );
-
-
-
+int key_RSA_GenerateKey();
+char* key_RSA_encrypt(char* str);
+char* key_RSA_decrypt(char* str);
+char* key_AES_GenerateKey();
+int key_AES_encrypt(char* data,int data_len,char** pp_encrypt,int* p_encrypt_len ,char* userkey);
+int  key_AES_decrypt(char* p_encrypt,int encrypt_len,char** pp_plain,char* usrkey);

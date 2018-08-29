@@ -1,0 +1,4 @@
+Log file created at: 2018/08/29 18:48:17
+Running on machine: izwz95t9mwm2pi0lwlt3xpz
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0829 18:48:17.791607 29350 crypto.cpp:74] PEM_read_RSAPrivateKey

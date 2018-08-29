@@ -74,7 +74,8 @@ int MngClient_Agree(MngClient_Info *pCltInfo)
   strcpy(msgReq.serverId,pCltInfo->serverId);
   /*printf("msgReq: %s,%s\n",msgReq.clientId,msgReq.serverId);*/
   strcpy(msgReq.AuthCode,pCltInfo->AuthCode);
-  for(; i < 65;i++)
+  //FILE* PubKey = fopen()
+  for(; i < 1024;i++)
   {
     msgReq.r1[i] = 'a'+i;
   }
@@ -126,7 +127,7 @@ int MngClient_Agree(MngClient_Info *pCltInfo)
   ret = MsgDecode(outData,outLen,(void**)&msgRes,&type);
   if(type != ID_MsgKey_Res)
   {
-  KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[4],ret,"func MngClient_Agree() MsgDecode() TypeError");
+    KeyMng_Log(__FILE__,__LINE__,KeyMngLevel[4],ret,"func MngClient_Agree() MsgDecode() TypeError");
     //打日志,类型出错 
     goto END;
   }

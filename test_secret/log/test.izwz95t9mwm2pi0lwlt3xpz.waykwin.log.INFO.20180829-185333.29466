@@ -1,0 +1,6 @@
+Log file created at: 2018/08/29 18:53:33
+Running on machine: izwz95t9mwm2pi0lwlt3xpz
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0829 18:53:33.412783 29466 crypto.cpp:141] RSA_Genrate_KEY() success
+I0829 18:53:33.413427 29466 crypto.cpp:92] RSA_decrypt() success
+I0829 18:53:33.413828 29466 crypto.cpp:92] RSA_decrypt() success
