@@ -1,1 +1,6 @@
 *.o
+./log/
+./secret/
+./test_secret/
+./secret_key/
+./other/
